@@ -424,8 +424,10 @@ async function loadData(){
     if(!r.ok)throw new Error("HTTP "+r.status);
     const raw=await r.json();
     ["JANEIRO","FEVEREIRO","MARCO"].forEach(k=>{
-      if(raw[k]&&raw[k].meta>0){
+      if(raw[k]&&(raw[k].totalFaturado>0||(raw[k].dias&&raw[k].dias.length>0))){
         DATA[k]={...FALLBACK[k],...raw[k]};
+        // Preserva a meta do fallback se a API retornar 0
+        if(!raw[k].meta||raw[k].meta<=0) DATA[k].meta=FALLBACK[k].meta||0;
         if(raw[k].dias&&raw[k].dias.length>0){
           const dias=raw[k].dias.filter(d=>d.f>0||d.i>0);
           const fat=dias.reduce((s,d)=>s+d.f,0);
