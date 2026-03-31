@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Gestao Comercial - Dashboard</title>
+<title>Gestão Comercial - Dashboard</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 <style>
 :root{
   --bg:#07090f;--bg2:#0c1018;--s:rgba(255,255,255,.04);--b:rgba(255,255,255,.08);
@@ -52,7 +53,8 @@ header{background:rgba(7,9,15,.92);backdrop-filter:blur(24px);border-bottom:1px 
 .tab:hover{border-color:var(--cyan);color:var(--cyan);}
 .tab.active{background:var(--cyan);color:#07090f;border-color:var(--cyan);font-weight:700;box-shadow:0 0 18px rgba(0,229,255,.4);}
 .btn-ref{padding:7px 16px;border-radius:8px;border:1px solid var(--b);cursor:pointer;
-  font-weight:600;font-size:13px;font-family:var(--fi);background:transparent;color:var(--su);transition:all .2s;}
+  font-weight:600;font-size:13px;font-family:var(--fi);background:transparent;color:var(--su);
+  transition:all .2s;display:flex;align-items:center;gap:6px;}
 .btn-ref:hover{border-color:var(--green);color:var(--green);}
 #sync-dot{width:7px;height:7px;border-radius:50%;background:var(--yellow);display:inline-block;margin-right:5px;animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
@@ -70,7 +72,7 @@ main{padding:20px 24px;display:flex;flex-direction:column;gap:20px;position:rela
 .fade-up{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease;}
 .fade-up.in{opacity:1;transform:none;}
 .sec{font-family:var(--fb);font-size:11px;font-weight:700;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--su);margin-bottom:-6px;}
+  text-transform:uppercase;color:var(--su);margin-bottom:-6px;display:flex;align-items:center;gap:7px;}
 
 /* ALERTA */
 #salert{border-radius:14px;padding:16px 22px;border:1px solid;
@@ -78,11 +80,11 @@ main{padding:20px 24px;display:flex;flex-direction:column;gap:20px;position:rela
   animation:alertPop .6s cubic-bezier(.34,1.56,.64,1) both;}
 @keyframes alertPop{from{opacity:0;transform:scale(.97);}to{opacity:1;transform:scale(1);}}
 .sa-left{display:flex;align-items:center;gap:14px;}
-.sa-icon{font-size:28px;animation:bounce 2s ease-in-out infinite;}
+.sa-icon{font-size:26px;animation:bounce 2s ease-in-out infinite;width:32px;text-align:center;}
 @keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
 .sa-h{font-family:var(--fb);font-size:16px;font-weight:700;}
 .sa-p{font-size:12px;color:var(--su);margin-top:3px;line-height:1.5;}
-.sa-badge{padding:8px 18px;border-radius:9px;font-size:13px;font-weight:700;font-family:var(--fb);}
+.sa-badge{padding:8px 18px;border-radius:9px;font-size:13px;font-weight:700;font-family:var(--fb);display:flex;align-items:center;gap:6px;}
 
 /* KPI GRID */
 .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;}
@@ -95,7 +97,7 @@ main{padding:20px 24px;display:flex;flex-direction:column;gap:20px;position:rela
 .kpi::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--kc);}
 .kpi::before{content:'';position:absolute;inset:0;
   background:radial-gradient(circle at 0% 100%,var(--kc) 0%,transparent 60%);opacity:.06;}
-.k-ic{font-size:20px;margin-bottom:9px;}
+.k-ic{font-size:18px;margin-bottom:9px;color:var(--kc);}
 .k-lb{font-size:10px;color:var(--su);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;font-weight:600;}
 .k-vl{font-family:var(--fn);font-size:26px;font-weight:700;letter-spacing:.01em;line-height:1.1;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;}
@@ -112,7 +114,7 @@ main{padding:20px 24px;display:flex;flex-direction:column;gap:20px;position:rela
   text-align:center;gap:6px;transition:background .2s;}
 .ph-item:hover{background:rgba(255,255,255,.04);}
 .ph-main{background:rgba(0,229,255,.04);}
-.ph-icon{font-size:20px;}
+.ph-icon{font-size:18px;color:var(--su);}
 .ph-label{font-size:10px;color:var(--su);text-transform:uppercase;letter-spacing:.06em;font-weight:600;}
 .ph-value{font-family:var(--fn);font-size:27px;font-weight:700;letter-spacing:.02em;line-height:1.1;white-space:nowrap;}
 .ph-sub{font-size:12px;font-weight:600;margin-top:2px;}
@@ -128,6 +130,7 @@ main{padding:20px 24px;display:flex;flex-direction:column;gap:20px;position:rela
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
   background:linear-gradient(90deg,transparent,rgba(0,229,255,.2),transparent);}
 .card-title{font-family:var(--fb);font-size:14px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.card-title i{color:var(--cyan);font-size:14px;}
 
 /* TERMOMETRO */
 .meta-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px;}
@@ -172,7 +175,8 @@ main{padding:20px 24px;display:flex;flex-direction:column;gap:20px;position:rela
 .proj-rows{display:flex;flex-direction:column;gap:0;margin-top:14px;border-top:1px solid var(--b);padding-top:14px;}
 .pr-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);}
 .pr-row:last-child{border-bottom:none;}
-.pr-row label{font-size:11px;color:var(--su);font-weight:500;}
+.pr-row label{font-size:11px;color:var(--su);font-weight:500;display:flex;align-items:center;gap:6px;}
+.pr-row label i{width:14px;text-align:center;}
 .pr-row span{font-family:var(--fn);font-size:15px;font-weight:700;}
 
 /* RANKING */
@@ -198,7 +202,7 @@ main{padding:20px 24px;display:flex;flex-direction:column;gap:20px;position:rela
 .s-bar-t{height:5px;border-radius:999px;background:rgba(255,255,255,.07);overflow:hidden;}
 .s-bar-f{height:100%;border-radius:999px;transition:width .9s ease;}
 .s-pct{font-size:9px;color:var(--m);margin-top:2px;}
-.s-goal{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;flex-shrink:0;}
+.s-goal{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;flex-shrink:0;display:flex;align-items:center;gap:4px;}
 .s-val{font-family:var(--fn);font-size:15px;font-weight:700;min-width:90px;text-align:right;flex-shrink:0;}
 
 /* CHARTS */
@@ -207,7 +211,8 @@ main{padding:20px 24px;display:flex;flex-direction:column;gap:20px;position:rela
 .cc{background:var(--s);border:1px solid var(--b);border-radius:16px;padding:20px 22px;position:relative;overflow:hidden;}
 .cc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
   background:linear-gradient(90deg,transparent,rgba(0,229,255,.3),transparent);}
-.cc h3{font-family:var(--fb);font-size:13px;font-weight:600;margin-bottom:14px;color:#c8d8f0;display:flex;align-items:center;gap:6px;}
+.cc h3{font-family:var(--fb);font-size:13px;font-weight:600;margin-bottom:14px;color:#c8d8f0;display:flex;align-items:center;gap:7px;}
+.cc h3 i{color:var(--cyan);font-size:13px;}
 .ch{position:relative;height:210px;}
 .ch-tall{position:relative;height:260px;}
 
@@ -218,11 +223,11 @@ main{padding:20px 24px;display:flex;flex-direction:column;gap:20px;position:rela
 .ci label{font-size:10px;color:var(--su);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;font-weight:600;}
 .ci .cv{font-family:var(--fn);font-size:20px;font-weight:700;}
 .ci .pv{font-size:11px;color:var(--su);margin-top:3px;}
-.ci .dv{font-size:12px;font-weight:700;margin-top:3px;}
+.ci .dv{font-size:12px;font-weight:700;margin-top:3px;display:flex;align-items:center;gap:4px;}
 .up{color:var(--green);}
 .dn{color:var(--red);}
 .foot{text-align:center;font-size:11px;color:var(--m);padding-top:10px;border-top:1px solid var(--b);}
-.foot a{color:var(--cyan);text-decoration:none;}
+.foot a{color:var(--cyan);text-decoration:none;display:inline-flex;align-items:center;gap:4px;}
 @media(max-width:600px){main{padding:14px 12px;}header{padding:12px 14px;}.kpi-grid{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
@@ -234,48 +239,57 @@ main{padding:20px 24px;display:flex;flex-direction:column;gap:20px;position:rela
 
 <header>
   <div class="brand">
-    <div class="brand-icon">&#128202;</div>
-    <div><h1>Gestao Comercial</h1><p id="sync-lbl"><span id="sync-dot"></span>Conectando...</p></div>
+    <div class="brand-icon"><i class="fa-solid fa-chart-line"></i></div>
+    <div><h1>Gestão Comercial</h1><p id="sync-lbl"><span id="sync-dot"></span>Conectando...</p></div>
   </div>
   <div class="header-r">
     <div class="tabs" id="tabs"></div>
-    <button class="btn-ref" onclick="loadData()">&#8635; Atualizar</button>
+    <button class="btn-ref" onclick="loadData()"><i class="fa-solid fa-rotate"></i> Atualizar</button>
   </div>
 </header>
 
 <main id="main" style="display:none;flex-direction:column;gap:20px;">
   <div id="salert" class="fade-up"></div>
-  <div class="sec fade-up">Indicadores Principais</div>
+
+  <div class="sec fade-up"><i class="fa-solid fa-gauge-high"></i> Indicadores Principais</div>
   <div class="kpi-grid fade-up" id="kgrid"></div>
 
   <div class="proj-highlight fade-up">
-    <div class="ph-item"><div class="ph-icon">&#128176;</div>
+    <div class="ph-item">
+      <div class="ph-icon"><i class="fa-solid fa-sack-dollar"></i></div>
       <div class="ph-label">Faturado Atual</div>
       <div class="ph-value" id="ph-v-acum">-</div>
-      <div class="ph-sub" id="ph-s-acum">-</div></div>
+      <div class="ph-sub" id="ph-s-acum">-</div>
+    </div>
     <div class="ph-divider"></div>
-    <div class="ph-item ph-main"><div class="ph-icon">&#128302;</div>
-      <div class="ph-label">Previsao de Fechamento</div>
+    <div class="ph-item ph-main">
+      <div class="ph-icon"><i class="fa-solid fa-rocket"></i></div>
+      <div class="ph-label">Previsão de Fechamento</div>
       <div class="ph-value" id="ph-v-prev">-</div>
-      <div class="ph-sub" id="ph-s-prev">-</div></div>
+      <div class="ph-sub" id="ph-s-prev">-</div>
+    </div>
     <div class="ph-divider"></div>
-    <div class="ph-item"><div class="ph-icon">&#9889;</div>
+    <div class="ph-item">
+      <div class="ph-icon"><i class="fa-solid fa-bolt"></i></div>
       <div class="ph-label">Falta para Meta</div>
       <div class="ph-value" id="ph-v-falta">-</div>
-      <div class="ph-sub" id="ph-s-falta">-</div></div>
+      <div class="ph-sub" id="ph-s-falta">-</div>
+    </div>
     <div class="ph-divider"></div>
-    <div class="ph-item"><div class="ph-icon">&#128197;</div>
-      <div class="ph-label">Necessario por Dia</div>
+    <div class="ph-item">
+      <div class="ph-icon"><i class="fa-solid fa-calendar-day"></i></div>
+      <div class="ph-label">Necessário por Dia</div>
       <div class="ph-value" id="ph-v-dia">-</div>
-      <div class="ph-sub" id="ph-s-dia">-</div></div>
+      <div class="ph-sub" id="ph-s-dia">-</div>
+    </div>
   </div>
 
   <div class="meta-time fade-up">
     <div class="card">
       <div class="meta-row">
-        <div class="card-title"><span>&#127919;</span>Termometro de Meta</div>
+        <div class="card-title"><i class="fa-solid fa-bullseye"></i>Termômetro de Meta</div>
         <div class="meta-edit">
-          <label>Meta do mes:</label>
+          <label>Meta do mês:</label>
           <input class="meta-inp" id="meta-inp" placeholder="R$ 0" onchange="onMeta()"/>
         </div>
       </div>
@@ -293,24 +307,24 @@ main{padding:20px 24px;display:flex;flex-direction:column;gap:20px;position:rela
       <div class="meta-stats" id="mstats"></div>
     </div>
     <div class="card">
-      <div class="card-title"><span>&#128197;</span>Dias Uteis do Mes <small style="font-size:10px;color:var(--m);font-weight:400">(Seg-Sab)</small></div>
+      <div class="card-title"><i class="fa-solid fa-calendar-check"></i>Dias Úteis do Mês <small style="font-size:10px;color:var(--m);font-weight:400">(Seg–Sáb)</small></div>
       <div class="time-nums" id="tnums"></div>
       <div class="time-bar"><div class="time-bar-fill" id="tbar" style="width:0%"></div></div>
       <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--m);margin-top:5px;">
-        <span>Inicio</span><span id="tpct"></span><span>Fim</span>
+        <span>Início</span><span id="tpct"></span><span>Fim</span>
       </div>
       <div class="proj-rows">
-        <div class="pr-row"><label>&#128176; Acumulado</label><span id="pj-ac" style="color:var(--cyan)"></span></div>
-        <div class="pr-row"><label>&#128302; Previsao Final</label><span id="pj-fi" style="color:var(--green)"></span></div>
-        <div class="pr-row"><label>&#9889; Falta p/ Meta</label><span id="pj-fa" style="color:var(--yellow)"></span></div>
-        <div class="pr-row"><label>&#128197; Necessario/dia</label><span id="pj-nd" style="color:var(--orange)"></span></div>
+        <div class="pr-row"><label><i class="fa-solid fa-sack-dollar" style="color:var(--cyan)"></i> Acumulado</label><span id="pj-ac" style="color:var(--cyan)"></span></div>
+        <div class="pr-row"><label><i class="fa-solid fa-rocket" style="color:var(--green)"></i> Previsão Final</label><span id="pj-fi" style="color:var(--green)"></span></div>
+        <div class="pr-row"><label><i class="fa-solid fa-bolt" style="color:var(--yellow)"></i> Falta p/ Meta</label><span id="pj-fa" style="color:var(--yellow)"></span></div>
+        <div class="pr-row"><label><i class="fa-solid fa-calendar-day" style="color:var(--orange)"></i> Necessário/dia</label><span id="pj-nd" style="color:var(--orange)"></span></div>
       </div>
     </div>
   </div>
 
   <div class="card fade-up">
     <div class="ranking-header">
-      <div class="card-title"><span>&#128101;</span>Ranking de Vendedores</div>
+      <div class="card-title"><i class="fa-solid fa-ranking-star"></i>Ranking de Vendedores</div>
       <div class="rmeta-wrap">
         <label>Meta individual:</label>
         <input class="rmeta-inp" id="rmeta-inp" placeholder="R$ 0" onchange="onRmeta()"/>
@@ -319,22 +333,22 @@ main{padding:20px 24px;display:flex;flex-direction:column;gap:20px;position:rela
     <div id="rlist" style="display:flex;flex-direction:column;gap:7px;"></div>
   </div>
 
-  <div class="sec fade-up">Analise Visual</div>
+  <div class="sec fade-up"><i class="fa-solid fa-chart-area"></i> Análise Visual</div>
   <div class="charts-grid fade-up">
-    <div class="cc"><h3><span>&#128200;</span>Faturamento Diario + Acumulado</h3><div class="ch-tall"><canvas id="c-daily"></canvas></div></div>
-    <div class="cc"><h3><span>&#127942;</span>Vendedores (Top 10)</h3><div class="ch-tall"><canvas id="c-sell"></canvas></div></div>
-    <div class="cc"><h3><span>&#127919;</span>Acumulado vs Meta</h3><div class="ch"><canvas id="c-acum"></canvas></div></div>
-    <div class="cc"><h3><span>&#128230;</span>Pedidos por Dia</h3><div class="ch"><canvas id="c-ord"></canvas></div></div>
+    <div class="cc"><h3><i class="fa-solid fa-chart-bar"></i>Faturamento Diário + Acumulado</h3><div class="ch-tall"><canvas id="c-daily"></canvas></div></div>
+    <div class="cc"><h3><i class="fa-solid fa-trophy"></i>Vendedores (Top 10)</h3><div class="ch-tall"><canvas id="c-sell"></canvas></div></div>
+    <div class="cc"><h3><i class="fa-solid fa-bullseye"></i>Acumulado vs Meta</h3><div class="ch"><canvas id="c-acum"></canvas></div></div>
+    <div class="cc"><h3><i class="fa-solid fa-box"></i>Pedidos por Dia</h3><div class="ch"><canvas id="c-ord"></canvas></div></div>
   </div>
 
   <div class="card fade-up">
-    <div class="card-title"><span>&#128260;</span>Comparativo com Mes Anterior</div>
+    <div class="card-title"><i class="fa-solid fa-right-left"></i>Comparativo com Mês Anterior</div>
     <div class="comp-grid" id="cgrid"></div>
   </div>
 
   <div class="foot fade-up">
-    Ultima atualizacao: <span id="last-up">-</span> &nbsp;&middot;&nbsp;
-    <a href="#" onclick="loadData();return false;">&#8635; Atualizar</a> &nbsp;&middot;&nbsp; Auto-refresh a cada 5 min
+    Última atualização: <span id="last-up">-</span> &nbsp;&middot;&nbsp;
+    <a href="#" onclick="loadData();return false;"><i class="fa-solid fa-rotate"></i> Atualizar</a> &nbsp;&middot;&nbsp; Auto-refresh a cada 5 min
   </div>
 </main>
 
@@ -350,29 +364,54 @@ const FALLBACK={
 };
 const SELLERS=[
   {name:"Ana Silva",pct:.122},{name:"Carlos Melo",pct:.107},{name:"Fernanda Lima",pct:.097},
-  {name:"Joao Pedro",pct:.089},{name:"Mariana Costa",pct:.082},{name:"Rafael Souza",pct:.075},
-  {name:"Patricia Nunes",pct:.068},{name:"Lucas Alves",pct:.062},{name:"Bianca Torres",pct:.057},
+  {name:"João Pedro",pct:.089},{name:"Mariana Costa",pct:.082},{name:"Rafael Souza",pct:.075},
+  {name:"Patrícia Nunes",pct:.068},{name:"Lucas Alves",pct:.062},{name:"Bianca Torres",pct:.057},
   {name:"Diego Moura",pct:.052},{name:"Camila Reis",pct:.048},{name:"Thiago Brito",pct:.043},
-  {name:"Leticia Pinto",pct:.039},{name:"Andre Rocha",pct:.034},{name:"Vanessa Cruz",pct:.025}
+  {name:"Letícia Pinto",pct:.039},{name:"André Rocha",pct:.034},{name:"Vanessa Cruz",pct:.025}
 ];
-const MLBL={JANEIRO:"Janeiro",FEVEREIRO:"Fevereiro",MARCO:"Marco"};
+const MMAP={JANEIRO:0,FEVEREIRO:1,MARCO:2,ABRIL:3,MAIO:4,JUNHO:5,JULHO:6,AGOSTO:7,SETEMBRO:8,OUTUBRO:9,NOVEMBRO:10,DEZEMBRO:11};
+const MLBL={JANEIRO:"Janeiro",FEVEREIRO:"Fevereiro",MARCO:"Março"};
 const MCOL={JANEIRO:"#00e5ff",FEVEREIRO:"#9d6fff",MARCO:"#ff7c3a"};
 const fmt=v=>(v||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:0});
 const fmtK=v=>v>=1000?"R$"+(v/1000).toFixed(1)+"k":fmt(v);
 const pctS=v=>(v*100).toFixed(1)+"%";
 const fN=(v,d=2)=>typeof v==="number"?v.toFixed(d):v;
 const parse$=s=>parseFloat(String(s).replace(/[R$.\s]/g,"").replace(",","."))||0;
-let DATA={...FALLBACK},active="MARCO",charts={};
+let DATA={...FALLBACK},charts={};
 let cMeta=parseFloat(localStorage.getItem("cMeta")||"0");
 let cRmeta=parseFloat(localStorage.getItem("cRmeta")||"0");
 
+// Define a aba ativa como o mês atual, ou o último mês disponível
+function getActiveMonth(){
+  const keys=["JANEIRO","FEVEREIRO","MARCO","ABRIL","MAIO","JUNHO","JULHO","AGOSTO","SETEMBRO","OUTUBRO","NOVEMBRO","DEZEMBRO"];
+  const now=new Date();
+  const currentKey=keys[now.getMonth()];
+  if(DATA[currentKey])return currentKey;
+  for(let i=now.getMonth()-1;i>=0;i--){if(DATA[keys[i]])return keys[i];}
+  return Object.keys(DATA)[0]||"MARCO";
+}
+let active=getActiveMonth();
+
+// Ícones FontAwesome para cada KPI
+const KPI_ICONS={
+  fat:'<i class="fa-solid fa-sack-dollar"></i>',
+  meta:'<i class="fa-solid fa-bullseye"></i>',
+  dia:'<i class="fa-solid fa-bolt"></i>',
+  prev:'<i class="fa-solid fa-rocket"></i>',
+  roas:'<i class="fa-solid fa-chart-line"></i>',
+  ticket:'<i class="fa-solid fa-tag"></i>',
+  media:'<i class="fa-solid fa-chart-simple"></i>',
+  roi:'<i class="fa-solid fa-percent"></i>',
+};
+
 function countWD(y,m,f,t){let c=0;for(let d=f;d<=t;d++){if(new Date(y,m,d).getDay()!==0)c++;}return c;}
 function timeInfo(key){
-  const mMap={JANEIRO:0,FEVEREIRO:1,MARCO:2};
-  const y=2026,m=mMap[key]??0;
-  const last=new Date(y,m+1,0).getDate();
   const now=new Date();
-  const isAct=(now.getFullYear()===y&&now.getMonth()===m);
+  const mIdx=MMAP[key]??0;
+  const y=now.getFullYear();
+  const m=mIdx;
+  const last=new Date(y,m+1,0).getDate();
+  const isAct=(now.getMonth()===m);
   const today=isAct?Math.min(now.getDate(),last):last;
   const total=countWD(y,m,1,last);
   const dec=countWD(y,m,1,today);
@@ -384,11 +423,9 @@ async function loadData(){
     const r=await fetch(API);
     if(!r.ok)throw new Error("HTTP "+r.status);
     const raw=await r.json();
-    // Mesclar dados da API preservando fallback como base
     ["JANEIRO","FEVEREIRO","MARCO"].forEach(k=>{
       if(raw[k]&&raw[k].meta>0){
         DATA[k]={...FALLBACK[k],...raw[k]};
-        // Recalcular totais excluindo domingos
         if(raw[k].dias&&raw[k].dias.length>0){
           const dias=raw[k].dias.filter(d=>d.f>0||d.i>0);
           const fat=dias.reduce((s,d)=>s+d.f,0);
@@ -417,9 +454,8 @@ async function loadData(){
 }
 
 function renderAll(){
-  // Tabs
   const tb=document.getElementById("tabs");tb.innerHTML="";
-  ["JANEIRO","FEVEREIRO","MARCO"].forEach(k=>{
+  Object.keys(MLBL).forEach(k=>{
     const b=document.createElement("button");
     b.className="tab"+(k===active?" active":"");
     b.textContent=MLBL[k];b.onclick=()=>{active=k;renderAll();};
@@ -441,7 +477,8 @@ function renderAll(){
   const roas=inv>0?fat/inv:0;
   const ticket=totalP>0?fat/totalP:0;
   const sellers=SELLERS.map(s=>({name:s.name,value:Math.round(fat*s.pct)})).sort((a,b)=>b.value-a.value);
-  const prevKey=active==="FEVEREIRO"?"JANEIRO":active==="MARCO"?"FEVEREIRO":null;
+  const mKeys=Object.keys(MLBL);
+  const prevKey=mKeys[mKeys.indexOf(active)-1]||null;
   const prev=prevKey?DATA[prevKey]:null;
 
   renderAlert(pct,fd,proj,meta,fat,ti);
@@ -459,10 +496,24 @@ function renderAll(){
 function renderAlert(pct,fd,proj,meta,fat,ti){
   const el=document.getElementById("salert");
   let ic,h,p,badge,bg,bc;
-  if(pct>=1){ic="&#127942;";bg="rgba(0,229,160,.08)";bc="rgba(0,229,160,.3)";h="Meta Batida! Parabens a equipe!";p="Faturamento "+pctS(pct)+" da meta - Previsao: "+fmt(proj);badge={t:"META ATINGIDA",bg:"var(--green)",c:"#07090f"};}
-  else if(pct>=.8){ic="&#9889;";bg="rgba(245,197,24,.07)";bc="rgba(245,197,24,.3)";h="Quase la! Acelere o ritmo final.";p="Precisa de "+fmt(fd)+"/dia nos proximos "+ti.rest+" dias";badge={t:pctS(pct)+" da meta",bg:"var(--yellow)",c:"#07090f"};}
-  else if(pct>=.5){ic="&#9888;&#65039;";bg="rgba(255,124,58,.07)";bc="rgba(255,124,58,.3)";h="Atencao: Ritmo precisa acelerar!";p="Precisa de "+fmt(fd)+"/dia para bater a meta de "+fmt(meta);badge={t:pctS(pct)+" da meta",bg:"var(--orange)",c:"#07090f"};}
-  else{ic="&#128680;";bg="rgba(255,61,90,.08)";bc="rgba(255,61,90,.35)";h="ALERTA CRITICO: Desempenho abaixo do esperado!";p="Apenas "+pctS(pct)+" atingido - Falta "+fmt(meta-fat)+" - "+fmt(fd)+"/dia necessario";badge={t:pctS(pct)+" da meta",bg:"var(--red)",c:"#fff"};}
+  if(pct>=1){
+    ic='<i class="fa-solid fa-trophy"></i>';bg="rgba(0,229,160,.08)";bc="rgba(0,229,160,.3)";
+    h="Meta Batida! Parabéns à equipe!";p="Faturamento "+pctS(pct)+" da meta — Previsão: "+fmt(proj);
+    badge={t:"META ATINGIDA",bg:"var(--green)",c:"#07090f"};
+  }else if(pct>=.8){
+    ic='<i class="fa-solid fa-bolt"></i>';bg="rgba(245,197,24,.07)";bc="rgba(245,197,24,.3)";
+    h="Quase lá! Acelere o ritmo final.";p="Precisa de "+fmt(fd)+"/dia nos próximos "+ti.rest+" dias";
+    badge={t:pctS(pct)+" da meta",bg:"var(--yellow)",c:"#07090f"};
+  }else if(pct>=.5){
+    ic='<i class="fa-solid fa-triangle-exclamation"></i>';bg="rgba(255,124,58,.07)";bc="rgba(255,124,58,.3)";
+    h="Atenção: Ritmo precisa acelerar!";p="Precisa de "+fmt(fd)+"/dia para bater a meta de "+fmt(meta);
+    badge={t:pctS(pct)+" da meta",bg:"var(--orange)",c:"#07090f"};
+  }else{
+    ic='<i class="fa-solid fa-circle-exclamation"></i>';bg="rgba(255,61,90,.08)";bc="rgba(255,61,90,.35)";
+    h="ALERTA CRÍTICO: Desempenho abaixo do esperado!";
+    p="Apenas "+pctS(pct)+" atingido — Falta "+fmt(meta-fat)+" — "+fmt(fd)+"/dia necessário";
+    badge={t:pctS(pct)+" da meta",bg:"var(--red)",c:"#fff"};
+  }
   el.style.background=bg;el.style.borderColor=bc;
   el.innerHTML='<div class="sa-left"><div class="sa-icon">'+ic+'</div><div><div class="sa-h">'+h+'</div><div class="sa-p">'+p+'</div></div></div><div class="sa-badge" style="background:'+badge.bg+';color:'+badge.c+'">'+badge.t+'</div>';
 }
@@ -470,14 +521,14 @@ function renderAlert(pct,fd,proj,meta,fat,ti){
 function renderKpis(fat,meta,pct,fd,proj,roas,ticket,peds,inv,roi,media,ti){
   const c=MCOL[active];
   const kpis=[
-    {ic:"&#128176;",lb:"Faturamento",vl:fmt(fat),sub:"de "+fmt(meta),kc:c},
-    {ic:"&#127919;",lb:"% da Meta",vl:pctS(pct),sub:pct>=1?"Batida!":"Falta "+fmt(meta-fat),kc:pct>=1?"var(--green)":pct>=.8?"var(--yellow)":"var(--red)"},
-    {ic:"&#9889;",lb:"Falta por Dia",vl:fd>0?fmt(fd):"OK",sub:ti.rest+" dias restantes",kc:"var(--orange)"},
-    {ic:"&#128302;",lb:"Previsao Final",vl:fmtK(proj),sub:proj>=meta?"Acima da meta":"Abaixo da meta",kc:proj>=meta?"var(--green)":"var(--yellow)"},
-    {ic:"&#128200;",lb:"ROAS",vl:fN(roas)+"x",sub:"retorno s/ anuncios",kc:"var(--purple)"},
-    {ic:"&#127915;",lb:"Ticket Medio",vl:fmt(ticket),sub:peds+" pedidos",kc:"var(--blue)"},
-    {ic:"&#128202;",lb:"Media Diaria",vl:fmt(media),sub:"faturamento/dia",kc:"var(--green)"},
-    {ic:"&#128248;",lb:"ROI Anuncios",vl:roi.toFixed(1)+"%",sub:fmt(inv)+" investido",kc:"var(--orange)"},
+    {ic:KPI_ICONS.fat,lb:"Faturamento",vl:fmt(fat),sub:"de "+fmt(meta),kc:c},
+    {ic:KPI_ICONS.meta,lb:"% da Meta",vl:pctS(pct),sub:pct>=1?"Batida!":"Falta "+fmt(meta-fat),kc:pct>=1?"var(--green)":pct>=.8?"var(--yellow)":"var(--red)"},
+    {ic:KPI_ICONS.dia,lb:"Falta por Dia",vl:fd>0?fmt(fd):"OK",sub:ti.rest+" dias restantes",kc:"var(--orange)"},
+    {ic:KPI_ICONS.prev,lb:"Previsão Final",vl:fmtK(proj),sub:proj>=meta?"Acima da meta":"Abaixo da meta",kc:proj>=meta?"var(--green)":"var(--yellow)"},
+    {ic:KPI_ICONS.roas,lb:"ROAS",vl:fN(roas)+"x",sub:"retorno s/ anúncios",kc:"var(--purple)"},
+    {ic:KPI_ICONS.ticket,lb:"Ticket Médio",vl:fmt(ticket),sub:peds+" pedidos",kc:"var(--blue)"},
+    {ic:KPI_ICONS.media,lb:"Média Diária",vl:fmt(media),sub:"faturamento/dia",kc:"var(--green)"},
+    {ic:KPI_ICONS.roi,lb:"ROI Anúncios",vl:roi.toFixed(1)+"%",sub:fmt(inv)+" investido",kc:"var(--orange)"},
   ];
   document.getElementById("kgrid").innerHTML=kpis.map((k,i)=>'<div class="kpi" style="--kc:'+k.kc+';animation-delay:'+(i*60)+'ms"><div class="k-ic">'+k.ic+'</div><div class="k-lb">'+k.lb+'</div><div class="k-vl">'+k.vl+'</div><div class="k-sub">'+k.sub+'</div></div>').join("");
 }
@@ -491,14 +542,18 @@ function renderThermo(fat,meta,pct,media,falta,fd,ti){
   tf.style.width=pv+"%";tf.style.background="linear-gradient(90deg,"+ga+","+gb+")";tf.style.boxShadow="0 0 16px "+gb+"66";
   const tp=document.getElementById("th-pct");tp.textContent=pctS(pct);tp.style.color=over?"var(--green)":pct>=.8?"var(--yellow)":"var(--red)";
   document.getElementById("th-meta").textContent=fmt(meta);
-  const ms=[{l:"Faturado",v:fmt(fat),c:""},{l:"Media Atual/Dia",v:fmt(media),c:""},{l:"Falta p/ Meta",v:fmt(falta),c:over?"ok":"danger"},{l:"Falta por Dia",v:fd>0?fmt(fd):"Meta!",c:over?"ok":"danger"},{l:"Dias Restantes",v:ti.rest+" dias",c:""},{l:"Meta do Mes",v:fmt(meta),c:""}];
+  const ms=[
+    {l:"Faturado",v:fmt(fat),c:""},{l:"Média Atual/Dia",v:fmt(media),c:""},
+    {l:"Falta p/ Meta",v:fmt(falta),c:over?"ok":"danger"},{l:"Falta por Dia",v:fd>0?fmt(fd):"Meta!",c:over?"ok":"danger"},
+    {l:"Dias Restantes",v:ti.rest+" dias",c:""},{l:"Meta do Mês",v:fmt(meta),c:""}
+  ];
   document.getElementById("mstats").innerHTML=ms.map(s=>'<div class="ms '+s.c+'"><label>'+s.l+'</label><span>'+s.v+'</span></div>').join("");
 }
 
 function renderTime(ti){
-  document.getElementById("tnums").innerHTML=[{n:ti.total,l:"Uteis/Mes"},{n:ti.dec,l:"Passados"},{n:ti.rest,l:"Restam"}].map(t=>'<div class="tn"><div class="n">'+t.n+'</div><div class="l">'+t.l+'</div></div>').join("");
+  document.getElementById("tnums").innerHTML=[{n:ti.total,l:"Úteis/Mês"},{n:ti.dec,l:"Passados"},{n:ti.rest,l:"Restam"}].map(t=>'<div class="tn"><div class="n">'+t.n+'</div><div class="l">'+t.l+'</div></div>').join("");
   document.getElementById("tbar").style.width=(ti.pct*100)+"%";
-  document.getElementById("tpct").textContent=(ti.pct*100).toFixed(0)+"% dos dias uteis";
+  document.getElementById("tpct").textContent=(ti.pct*100).toFixed(0)+"% dos dias úteis";
 }
 
 function renderProj(fat,proj,meta,falta,fd,ti){
@@ -515,18 +570,20 @@ function renderProj(fat,proj,meta,falta,fd,ti){
   document.getElementById("ph-v-falta").textContent=ok?"R$ 0":fmt(falta);document.getElementById("ph-v-falta").style.color=ok?"var(--green)":"var(--red)";
   document.getElementById("ph-s-falta").textContent=ok?"Meta batida!":ti.rest+" dias restantes";document.getElementById("ph-s-falta").style.color=ok?"var(--green)":"var(--su)";
   document.getElementById("ph-v-dia").textContent=fd>0?fmt(fd):"OK";document.getElementById("ph-v-dia").style.color=fd<=0?"var(--green)":"var(--orange)";
-  document.getElementById("ph-s-dia").textContent=fd>0?"para bater a meta":"Meta ja batida!";document.getElementById("ph-s-dia").style.color=fd<=0?"var(--green)":"var(--su)";
+  document.getElementById("ph-s-dia").textContent=fd>0?"para bater a meta":"Meta já batida!";document.getElementById("ph-s-dia").style.color=fd<=0?"var(--green)":"var(--su)";
 }
 
 function renderRanking(sellers,total,rmeta){
-  const top=sellers[0]?.value||1;const medals=["&#127947;","&#127948;","&#127949;"];
+  const top=sellers[0]?.value||1;
+  const medals=['<i class="fa-solid fa-trophy" style="color:#ffd500"></i>','<i class="fa-solid fa-medal" style="color:#c0c0c0"></i>','<i class="fa-solid fa-medal" style="color:#cd7f32"></i>'];
   document.getElementById("rlist").innerHTML=sellers.map((s,i)=>{
     const pp=total>0?s.value/total:0;const bp=s.value/top*100;
     const first=i===0,last=i===sellers.length-1;
     const hue=120-(i/sellers.length*120);const bc="hsl("+hue+",70%,55%)";
     const gOk=rmeta>0&&s.value>=rmeta;
-    const gTag=rmeta>0?'<span class="s-goal" style="background:'+(gOk?"var(--green-d)":"var(--red-d)")+';color:'+(gOk?"var(--green)":"var(--red)")+'">'+( gOk?"OK":"Meta")+'</span>':"";
-    return '<div class="seller '+(first?"gold":last?"last":"")+'" style="animation-delay:'+(i*35)+'ms"><div class="s-rank">'+(medals[i]||(i+1))+'</div><div class="s-name">'+s.name+'</div><div class="s-bar"><div class="s-bar-t"><div class="s-bar-f" style="width:'+bp+'%;background:'+bc+'"></div></div><div class="s-pct">'+(pp*100).toFixed(1)+'% do total</div></div>'+gTag+'<div class="s-val" style="color:'+bc+'">'+fmt(s.value)+'</div></div>';
+    const gTag=rmeta>0?'<span class="s-goal" style="background:'+(gOk?"var(--green-d)":"var(--red-d)")+';color:'+(gOk?"var(--green)":"var(--red)")+'">'+(gOk?'<i class="fa-solid fa-circle-check"></i> OK':'<i class="fa-solid fa-flag"></i> Meta')+'</span>':"";
+    const rankDisplay=medals[i]||('<span style="font-family:var(--fn);font-size:13px;font-weight:800;color:var(--m)">'+(i+1)+'</span>');
+    return '<div class="seller '+(first?"gold":last?"last":"")+'" style="animation-delay:'+(i*35)+'ms"><div class="s-rank">'+rankDisplay+'</div><div class="s-name">'+s.name+'</div><div class="s-bar"><div class="s-bar-t"><div class="s-bar-f" style="width:'+bp+'%;background:'+bc+'"></div></div><div class="s-pct">'+(pp*100).toFixed(1)+'% do total</div></div>'+gTag+'<div class="s-val" style="color:'+bc+'">'+fmt(s.value)+'</div></div>';
   }).join("");
 }
 
@@ -537,11 +594,12 @@ function h2r(h,a){const r=parseInt(h.slice(1,3),16),g=parseInt(h.slice(3,5),16),
 function dc(id){if(charts[id]){charts[id].destroy();delete charts[id];}}
 
 function renderCharts(dias,fat,meta,sellers,color){
+  if(!dias||dias.length===0){["daily","sell","acum","ord"].forEach(dc);return;}
   const lbs=dias.map(r=>r.d),fats=dias.map(r=>r.f),peds=dias.map(r=>r.p);
   let acc=0;const acum=dias.map(r=>{acc+=r.f;return acc;});
   const ml=dias.map(()=>meta);
   dc("daily");
-  charts["daily"]=new Chart(document.getElementById("c-daily"),{type:"bar",data:{labels:lbs,datasets:[{type:"line",data:acum,borderColor:color,borderWidth:2.5,pointRadius:0,fill:true,yAxisID:"y2",label:"Acumulado",backgroundColor:ctx=>{const g=ctx.chart.ctx.createLinearGradient(0,0,0,260);g.addColorStop(0,h2r(color,.25));g.addColorStop(1,h2r(color,0));return g;}},{data:fats,backgroundColor:ctx=>ctx.raw>0?h2r(color,.75):"rgba(255,61,90,.3)",borderRadius:4,label:"Diario",yAxisID:"y"}]},
+  charts["daily"]=new Chart(document.getElementById("c-daily"),{type:"bar",data:{labels:lbs,datasets:[{type:"line",data:acum,borderColor:color,borderWidth:2.5,pointRadius:0,fill:true,yAxisID:"y2",label:"Acumulado",backgroundColor:ctx=>{const g=ctx.chart.ctx.createLinearGradient(0,0,0,260);g.addColorStop(0,h2r(color,.25));g.addColorStop(1,h2r(color,0));return g;}},{data:fats,backgroundColor:ctx=>ctx.raw>0?h2r(color,.75):"rgba(255,61,90,.3)",borderRadius:4,label:"Diário",yAxisID:"y"}]},
     options:{...CD,plugins:{...CD.plugins,legend:{display:true,labels:{color:"#7888a0",font:{size:11},boxWidth:12}}},scales:{x:{grid:{color:"rgba(255,255,255,.03)"},ticks:{color:"#5a6e8a",font:{size:9}}},y:{grid:{color:"rgba(255,255,255,.04)"},ticks:{color:"#5a6e8a",font:{size:9},callback:v=>(v/1000).toFixed(0)+"k"}},y2:{display:false}}}});
   dc("sell");
   const s10=sellers.slice(0,10);
@@ -555,19 +613,19 @@ function renderCharts(dias,fat,meta,sellers,color){
 }
 
 function renderComp(curr,prev,roas,ticket,peds){
-  if(!prev){document.getElementById("cgrid").innerHTML='<p style="color:var(--m);font-size:12px;padding:8px">Sem mes anterior disponivel.</p>';return;}
+  if(!prev){document.getElementById("cgrid").innerHTML='<p style="color:var(--m);font-size:12px;padding:8px"><i class="fa-solid fa-circle-info"></i> Sem mês anterior disponível.</p>';return;}
   const items=[
     {l:"Faturamento",a:curr.totalFaturado,b:prev.totalFaturado,$:true},
     {l:"Investimento",a:curr.totalInvestido,b:prev.totalInvestido,$:true},
     {l:"ROAS",a:roas,b:prev.roasMedio,suf:"x"},
-    {l:"Ticket Medio",a:ticket,b:prev.ticketMedio,$:true},
+    {l:"Ticket Médio",a:ticket,b:prev.ticketMedio,$:true},
     {l:"Meta",a:curr.meta,b:prev.meta,$:true},
   ];
   document.getElementById("cgrid").innerHTML=items.map(it=>{
     const delta=it.b>0?(it.a-it.b)/it.b*100:0;const up=delta>=0;
     const af=it.$?fmt(it.a):fN(it.a)+(it.suf||"");
     const bf=it.$?fmt(it.b):fN(it.b)+(it.suf||"");
-    return '<div class="ci"><label>'+it.l+'</label><div class="cv">'+af+'</div><div class="pv">Ant: '+bf+'</div><div class="dv '+(up?"up":"dn")+'">'+(up?"&#9650;":"&#9660;")+' '+Math.abs(delta).toFixed(1)+'%</div></div>';
+    return '<div class="ci"><label>'+it.l+'</label><div class="cv">'+af+'</div><div class="pv">Ant: '+bf+'</div><div class="dv '+(up?"up":"dn")+'"><i class="fa-solid '+(up?"fa-arrow-trend-up":"fa-arrow-trend-down")+'"></i> '+Math.abs(delta).toFixed(1)+'%</div></div>';
   }).join("");
 }
 
