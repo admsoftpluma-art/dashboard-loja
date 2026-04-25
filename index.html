@@ -180,18 +180,29 @@ main{padding:20px 24px;display:flex;flex-direction:column;gap:16px}
   position:relative;overflow:hidden;
   box-shadow:0 2px 8px rgba(0,0,0,.05);
   transition:transform .2s,box-shadow .2s;
-  animation:fadeUp .4s ease both;
+  animation:fadeUp .5s ease both;
 }
-.kpi:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(107,31,140,.12)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.kpi:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(107,31,140,.18)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--kc)}
 .kpi::after{content:'';position:absolute;top:0;right:0;width:70px;height:70px;background:radial-gradient(circle at 100% 0%,var(--kc),transparent 65%);opacity:.08}
+/* Shimmer sweep no hover */
+.kpi .kpi-shine{position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.5) 50%,transparent 60%);transform:translateX(-100%);transition:transform .5s ease}
+.kpi:hover .kpi-shine{transform:translateX(100%)}
 .kpi-ic{font-size:22px;margin-bottom:10px}
 .kpi-lb{font-size:9px;font-weight:700;color:var(--gray-l);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
 .kpi-vl{font-size:24px;font-weight:900;color:var(--dark);line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--fn)}
 .kpi-sub{font-size:11px;margin-top:5px;font-weight:700;color:var(--kc);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .kpi-ml{font-size:9px;color:var(--gray-l);text-transform:uppercase;letter-spacing:.06em;margin-top:12px}
 .kpi-mv{font-size:13px;font-weight:700;color:var(--gray);margin-top:1px}
+/* Card especial para "Falta por Dia" — pisca quando urgente */
+.kpi.urgente{animation:fadeUp .5s ease both, pulseCard 2s ease-in-out infinite}
+@keyframes pulseCard{
+  0%,100%{box-shadow:0 2px 8px rgba(0,0,0,.05)}
+  50%{box-shadow:0 0 0 4px rgba(255,107,0,.25),0 8px 24px rgba(255,107,0,.2)}
+}
+.kpi.urgente::before{animation:barPulse 2s ease-in-out infinite}
+@keyframes barPulse{0%,100%{opacity:1}50%{opacity:.4}}
 
 /* ── CATEGORIAS ──────────────────────────────────────── */
 .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
@@ -203,15 +214,20 @@ main{padding:20px 24px;display:flex;flex-direction:column;gap:16px}
   transition:transform .2s,box-shadow .2s;
   animation:fadeUp .5s ease both;
 }
-.cat:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(107,31,140,.1)}
-.cat::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:var(--cc)}
+.cat:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(107,31,140,.18)}
+.cat::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:var(--cc);animation:catBarSlide .8s ease both}
+@keyframes catBarSlide{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1)}}
 .cat::after{content:'';position:absolute;bottom:-20px;right:-20px;width:90px;height:90px;border-radius:50%;background:var(--cc);opacity:.05}
-.cat-ic{font-size:32px;margin-bottom:8px;line-height:1}
+.cat-ic{font-size:32px;margin-bottom:8px;line-height:1;animation:iconBounce 3s ease-in-out infinite}
+@keyframes iconBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 .cat-nm{font-size:10px;font-weight:800;color:var(--cc);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px}
-.cat-vl{font-size:28px;font-weight:900;color:var(--dark);line-height:1;letter-spacing:-.5px;font-family:var(--fn)}
+.cat-vl{font-size:28px;font-weight:900;color:var(--dark);line-height:1;letter-spacing:-.5px;font-family:var(--fn);animation:countUp .7s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes countUp{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
 .cat-sb{font-size:11px;color:var(--gray);margin-top:5px}
-.cat-bar-w{margin-top:12px;height:5px;border-radius:3px;background:var(--border);overflow:hidden}
-.cat-bar-f{height:100%;border-radius:3px;transition:width 1.3s cubic-bezier(.4,0,.2,1)}
+.cat-bar-w{margin-top:12px;height:6px;border-radius:3px;background:var(--border);overflow:hidden}
+.cat-bar-f{height:100%;border-radius:3px;transition:width 1.4s cubic-bezier(.4,0,.2,1);position:relative}
+.cat-bar-f::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);background-size:200% 100%;animation:shimmerBar 2s linear infinite}
+@keyframes shimmerBar{0%{background-position:-200% 0}100%{background-position:200% 0}}
 .cat-pct{font-size:13px;font-weight:800;margin-top:5px}
 .no-cat{font-size:10px;color:var(--laranja);margin-top:5px;font-weight:600}
 
@@ -649,7 +665,18 @@ function renderAlert(pct,fd,meta,fat,ti){
   else{ic="🚨";tt="Alerta Crítico — Ação Imediata!";sb="Apenas "+pctF(pct)+" — Falta "+fmt(Math.max(0,meta-fat))+(ti.rest>0?" — "+fmtK(fd)+"/dia":"");
     bg="#fff0f0";bc="#e8001c";bt=pctF(pct)+" DA META";bb="#e8001c";bfc="#fff";}
   el.style.background=bg;el.style.borderColor=bc;el.style.color=bc;
-  el.innerHTML=`<div class="al-left"><div class="al-icon">${ic}</div><div><div class="al-title" style="color:${bc}">${tt}</div><div class="al-sub">${sb}</div></div></div><div class="al-badge" style="background:${bb};color:${bfc}">${bt}</div>`;
+  const pisca = pct<1 && ti.rest>0;
+  el.innerHTML=`
+    <div class="al-left">
+      <div class="al-icon">${ic}</div>
+      <div>
+        <div class="al-title" style="color:${bc}">${tt}</div>
+        <div class="al-sub">${sb}</div>
+      </div>
+    </div>
+    <div class="al-badge${pisca?' pisca':''}" style="background:${bb};color:${bfc}">${bt}</div>
+    <div class="al-ticker"><div class="al-ticker-i" style="color:${bc}"></div></div>
+  `;
 }
 
 function renderKpis(fat,meta,pct,fd,proj,roas,ticket,ped,inv,roi,media,ti){
@@ -661,15 +688,20 @@ function renderKpis(fat,meta,pct,fd,proj,roas,ticket,ped,inv,roi,media,ti){
     {ic:"📡",lb:"ROAS",vl:inv>0?fN(roas)+"x":"—",sub:"faturado ÷ investido",ml:"Investido",mv:fmt(inv),kc:"#6B1F8C",d:240},
     {ic:"🏷",lb:"Ticket Médio",vl:fmt(ticket),sub:ped+" pedidos",ml:"ROI anúncios",mv:inv>0?roi.toFixed(0)+"%":"—",kc:"#FF6B00",d:300},
   ];
-  document.getElementById("kpi-grid").innerHTML=items.map(k=>`
-    <div class="kpi" style="--kc:${k.kc};animation-delay:${k.d}ms">
+  document.getElementById("kpi-grid").innerHTML=items.map((k,idx)=>{
+    const isUrgente = idx===2 && pct<.8 && ti.rest>0;
+    const vldisplay = isUrgente
+      ? `<span class="txt-urgente" style="color:${k.kc}">${k.vl}</span>`
+      : `<span style="color:${k.kc}">${k.vl}</span>`;
+    return `<div class="kpi${isUrgente?' urgente':''}" style="--kc:${k.kc};animation-delay:${k.d}ms">
       <div class="kpi-ic">${k.ic}</div>
       <div class="kpi-lb">${k.lb}</div>
-      <div class="kpi-vl" style="color:${k.kc}">${k.vl}</div>
+      <div class="kpi-vl">${vldisplay}</div>
       <div class="kpi-sub">${k.sub}</div>
       <div class="kpi-ml">${k.ml}</div>
       <div class="kpi-mv">${k.mv}</div>
-    </div>`).join("");
+    </div>`;
+  }).join("");
 }
 
 function renderCat(esp,mov,ele,fat,temCat){
@@ -681,13 +713,14 @@ function renderCat(esp,mov,ele,fat,temCat){
   ];
   document.getElementById("cat-grid").innerHTML=cats.map((c,i)=>{
     const p=temCat&&total>0?c.val/total:0;
-    return `<div class="cat" style="--cc:${c.cc};animation-delay:${i*80}ms">
-      <div class="cat-ic">${c.ic}</div>
+    const barW=(p*100).toFixed(1);
+    return `<div class="cat" style="--cc:${c.cc};animation-delay:${i*100}ms">
+      <div class="cat-ic" style="animation-delay:${i*200}ms">${c.ic}</div>
       <div class="cat-nm" style="color:${c.cc}">${c.nm}</div>
-      <div class="cat-vl">${temCat&&c.val>0?fmt(c.val):(temCat?"R$ 0":"—")}</div>
-      <div class="cat-sb">${temCat?pctF(p)+" do total faturado":'<span class="no-cat">⚠️ Preencha as colunas na planilha</span>'}</div>
-      <div class="cat-bar-w"><div class="cat-bar-f" style="width:${(p*100).toFixed(1)}%;background:${c.cc}"></div></div>
-      <div class="cat-pct" style="color:${c.cc}">${temCat&&c.val>0?fmt(c.val):""}</div>
+      <div class="cat-vl" style="animation-delay:${i*120}ms">${temCat&&c.val>0?fmt(c.val):(temCat?"R$ 0":"—")}</div>
+      <div class="cat-sb">${temCat?pctF(p)+" do faturamento total":'<span class="no-cat">⚠️ Preencha Espuma/Móveis/Eletro na planilha</span>'}</div>
+      <div class="cat-bar-w"><div class="cat-bar-f" style="width:${barW}%;background:${c.cc}"></div></div>
+      <div class="cat-pct" style="color:${c.cc};animation-delay:${i*150}ms">${temCat&&c.val>0?pctF(p):""}</div>
     </div>`;
   }).join("");
 }
